@@ -1,14 +1,15 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-//const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-//const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const autoprefixer = require("autoprefixer");
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 
     entry: {
         main: './src/js/main.js',
         //vendor: ['node_modules'],
-        //style: './src/sass/styleScript.js',
+        // style: './src/sass/style.scss',
     },
 
     output: {
@@ -16,18 +17,40 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/js'),
         chunkFilename: "vendors.bundle.js"
     },
-    externals: {
-       jquery: 'jQuery',
-       $: 'jQuery'
-    },
-
+    // externals: {
+    //    jquery: 'jQuery',
+    //    $: 'jQuery'
+    // },
     // context: path.resolve(__dirname, '.' + js.src),
 
 
     // plugins: [
         // Adding our UglifyJS plugin
-        //new UglifyJSPlugin(),
     // ],
+    plugins: [
+        //Inclus les sources maps des fichiers bundler
+        // new webpack.SourceMapDevToolPlugin({
+        //     filename: '[file].map',
+        //     moduleFilenameTemplate: undefined,
+        //     fallbackModuleFilenameTemplate: undefined,
+        //     append: null,
+        //     module: true,
+        //     columns: true,
+        //     lineToLine: false,
+        //     noSources: false,
+        //     namespace: ''
+        // }),
+
+        //new UglifyJSPlugin(),
+
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: 'patate[name].css',
+            chunkFilename: 'patate[id].css',
+        }),
+
+    ],
 
     optimization: {
         splitChunks: { //Permets d'importer des librairies nodes si utilisé dans le projet afin d'éviter de les avoir dans plus d'un bundle
@@ -44,9 +67,7 @@ module.exports = {
         }
     },
     module: {
-
         rules: [
-
             {
                 test: /\.?js$/,
                 exclude: /(node_modules|bower_components|libs)/,
@@ -58,8 +79,15 @@ module.exports = {
                     }
                 }
             },
-
-        ]
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
+        ],
 
     },
 
