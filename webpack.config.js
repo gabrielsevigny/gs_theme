@@ -12,23 +12,37 @@ module.exports = {
     },
 
     output: {
-        filename: '[name].min.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'assets/js'),
-        //chunkFilename: "vendors.bundle.js"
+        chunkFilename: "vendors.bundle.js"
+    },
+    externals: {
+       jquery: 'jQuery',
+       $: 'jQuery'
     },
 
     // context: path.resolve(__dirname, '.' + js.src),
 
-    //externals: {
-    //    jquery: 'jQuery',
-    //    $: 'jQuery'
-    //},
 
-    plugins: [
+    // plugins: [
         // Adding our UglifyJS plugin
         //new UglifyJSPlugin(),
-    ],
+    // ],
 
+    optimization: {
+        splitChunks: { //Permets d'importer des librairies nodes si utilisé dans le projet afin d'éviter de les avoir dans plus d'un bundle
+            cacheGroups: {
+                node_vendors: {
+                    test: /[\\/]node_modules|libs[\\/]/,
+                        chunks: 'all',
+                        priority: 1,
+                },
+            },
+            chunks(chunk) {
+                return chunk.name
+            }
+        }
+    },
     module: {
 
         rules: [
