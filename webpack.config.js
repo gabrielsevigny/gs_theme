@@ -13,7 +13,7 @@ module.exports = {
 
     output: {
         filename: '[name].min.js',
-        path: path.resolve(__dirname, 'dist/js'),
+        path: path.resolve(__dirname, 'assets/js'),
         //chunkFilename: "vendors.bundle.js"
     },
 
