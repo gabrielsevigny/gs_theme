@@ -1,6 +1,6 @@
 const path = require('path');
 
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
@@ -14,10 +14,10 @@ module.exports = {
     output: {
         filename: '[name].min.js',
         path: path.resolve(__dirname, 'dist/js'),
-        chunkFilename: "vendors.bundle.js"
+        //chunkFilename: "vendors.bundle.js"
     },
 
-    context: path.resolve(__dirname, '.' + js.src),
+    // context: path.resolve(__dirname, '.' + js.src),
 
     //externals: {
     //    jquery: 'jQuery',
@@ -26,7 +26,7 @@ module.exports = {
 
     plugins: [
         // Adding our UglifyJS plugin
-        new UglifyJSPlugin(),
+        //new UglifyJSPlugin(),
     ],
 
     module: {
