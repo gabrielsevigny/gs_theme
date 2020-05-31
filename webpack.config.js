@@ -4,7 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-
+    //test push
     entry: {
         main: './src/js/main.js',
         //vendor: ['node_modules'],
