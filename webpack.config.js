@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
 
-var WebpackBuildNotifierPlugin = require('webpack-build-notifier'); //Notifiactions
 // const autoprefixer = require("autoprefixer");
 // const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -51,10 +51,19 @@ module.exports = {
             chunkFilename: 'patate[id].css',
         }),
 
-        new WebpackBuildNotifierPlugin({
-            title: "My Project Webpack Build",
-            logo: path.resolve("./img/favicon.png"),
-            suppressSuccess: true
+        //new WebpackBuildNotifierPlugin({
+        //    title: "WebPack Build",
+        //   icon: false, // Absolute path (doesn't work on balloons)
+        //   suppressSuccess: false
+        //})
+
+        new WebpackNotifierPlugin({
+            title: 'My awesome title',
+            //contentImage: path.join(__dirname, 'src/js_icon.png'),
+            contentImage: false,
+            sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
+            open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
+            icon: path.join(__dirname, 'src/js_icon.png'),
         })
 
     ],

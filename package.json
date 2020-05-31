@@ -39,8 +39,8 @@
     "style-loader": "^1.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
-    "webpack-build-notifier": "^2.0.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-notifier": "^1.8.0"
   },
   "dependencies": {
     "@barba/core": "^2.9.7",
