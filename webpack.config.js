@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+var WebpackBuildNotifierPlugin = require('webpack-build-notifier'); //Notifiactions
 // const autoprefixer = require("autoprefixer");
 // const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
@@ -25,7 +26,7 @@ module.exports = {
 
 
     // plugins: [
-        // Adding our UglifyJS plugin
+    // Adding our UglifyJS plugin
     // ],
     plugins: [
         //Inclus les sources maps des fichiers bundler
@@ -50,6 +51,12 @@ module.exports = {
             chunkFilename: 'patate[id].css',
         }),
 
+        new WebpackBuildNotifierPlugin({
+            title: "My Project Webpack Build",
+            logo: path.resolve("./img/favicon.png"),
+            suppressSuccess: true
+        })
+
     ],
 
     optimization: {
@@ -57,8 +64,8 @@ module.exports = {
             cacheGroups: {
                 node_vendors: {
                     test: /[\\/]node_modules|libs[\\/]/,
-                        chunks: 'all',
-                        priority: 1,
+                    chunks: 'all',
+                    priority: 1,
                 },
             },
             chunks(chunk) {
