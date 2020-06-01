@@ -1,16 +1,19 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require("autoprefixer");
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-// const autoprefixer = require("autoprefixer");
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const $proxy = 'http://dev.webpack';
+
 
 module.exports = {
-
+    context: __dirname,
     entry: {
-        main: './src/js/main.js',
-        //vendor: ['node_modules'],
-        // style: './src/sass/style.scss',
+        main: ['./src/js/main.js', './src/scss/style.scss']
     },
 
     output: {
@@ -18,53 +21,108 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/js'),
         chunkFilename: "vendors.bundle.js"
     },
-    // externals: {
-    //    jquery: 'jQuery',
-    //    $: 'jQuery'
-    // },
-    // context: path.resolve(__dirname, '.' + js.src),
+    externals: {
+        jquery: 'jQuery',
+        $: 'jQuery'
+    },
 
+    module: {
+        rules: [
+            {
+                test: /\.?js$/,
+                exclude: /(node_modules|bower_components|libs)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        //cacheDirectory: false,
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
+                test: /\.s?css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: () => [autoprefixer()]
+                        }
+                    },
+                    'sass-loader']
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: () => [autoprefixer()]
+                        }
+                    }]
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                options: {
+                    extract: true,
+                    spriteFilename: 'svg-defs.svg'
+                }
+            },
+            {
+                test: /\.(jpe?g|png|gif)\$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'images/',
+                            name: '[name].[ext]'
+                        }
+                    },
+                    'img-loader'
+                ]
+            }
+        ],
 
-    // plugins: [
-    // Adding our UglifyJS plugin
-    // ],
+    },
+
     plugins: [
-        //Inclus les sources maps des fichiers bundler
-        // new webpack.SourceMapDevToolPlugin({
-        //     filename: '[file].map',
-        //     moduleFilenameTemplate: undefined,
-        //     fallbackModuleFilenameTemplate: undefined,
-        //     append: null,
-        //     module: true,
-        //     columns: true,
-        //     lineToLine: false,
-        //     noSources: false,
-        //     namespace: ''
-        // }),
 
-        //new UglifyJSPlugin(),
-
+        // new StyleLintPlugin(),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: 'patate[name].css',
-            chunkFilename: 'patate[id].css',
+            moduleFilename: (chunk) => {
+                console.log("ID fichier :", chunk);
+                //NormalModule
+                const filePathArr = chunk.id.split('/');
+                let newFileName = '';
+                if (filePathArr.length > 0) {
+                    newFileName = filePathArr[filePathArr.length - 1].split('.')[0];
+                    console.log("Sa chie en calisse, voici le fichier :", newFileName);
+
+                    return `../../${newFileName}.css`;
+                } else {
+                    console.log("Sa chie en calisse");
+                    return `../../${chunk.name}.css`;
+                }
+            }
+
         }),
-
-        //new WebpackBuildNotifierPlugin({
-        //    title: "WebPack Build",
-        //   icon: false, // Absolute path (doesn't work on balloons)
-        //   suppressSuccess: false
-        //})
-
+        new BrowserSyncPlugin({
+            files: '**/*.php',
+            proxy: $proxy
+        }),
+        //notifications
         new WebpackNotifierPlugin({
-            title: 'My awesome title',
+            title: 'Le projet a été mis a jour',
             //contentImage: path.join(__dirname, 'src/js_icon.png'),
             contentImage: false,
             sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
             open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
             icon: path.join(__dirname, 'src/js_icon.png'),
-        })
+        }),
 
     ],
 
@@ -80,33 +138,9 @@ module.exports = {
             chunks(chunk) {
                 return chunk.name
             }
-        }
+        },
+        minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
     },
-    module: {
-        rules: [
-            {
-                test: /\.?js$/,
-                exclude: /(node_modules|bower_components|libs)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        //cacheDirectory: false,
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader',
-                ],
-            },
-        ],
-
-    },
-
     //devtool: 'source-map'
-    devtool: false
+    devtool: 'cheap-eval-source-map',
 };

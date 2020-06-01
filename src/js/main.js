@@ -1,4 +1,5 @@
 import barba from '@barba/core';
+// import css from '../css/style.scss';
 
 barba.init({
     // ...
