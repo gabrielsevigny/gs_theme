@@ -50,6 +50,13 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 --------------------------------------------------------------*/
 
+$clr : red;
+body{
+  background:$clr;
+  display:flex;
+  flex-wrap: wrap;
+}
+
 // Import variables and mixins.
 @import "abstracts/abstracts";
 

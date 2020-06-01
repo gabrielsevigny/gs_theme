@@ -9,11 +9,15 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const $proxy = 'http://dev.webpack';
 
-
 module.exports = {
     context: __dirname,
     entry: {
-        main: ['./src/js/main.js', './src/scss/style.scss']
+        main: [
+            './src/js/main.js',
+            './src/scss/style.scss',
+            './src/scss/admin.scss',
+            // './src/scss/editor.scss'
+        ]
     },
 
     output: {
@@ -42,7 +46,14 @@ module.exports = {
             {
                 test: /\.s?css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '../css/[name].css',
+                        }
+                    },
+                    'extract-loader',
+                    // MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -50,12 +61,19 @@ module.exports = {
                             plugins: () => [autoprefixer()]
                         }
                     },
-                    'sass-loader']
+                    'sass-loader'
+                ]
             },
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '../css/[name].css',
+                        }
+                    },
+                    'extract-loader',
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -92,24 +110,7 @@ module.exports = {
     plugins: [
 
         // new StyleLintPlugin(),
-        new MiniCssExtractPlugin({
-            moduleFilename: (chunk) => {
-                console.log("ID fichier :", chunk);
-                //NormalModule
-                const filePathArr = chunk.id.split('/');
-                let newFileName = '';
-                if (filePathArr.length > 0) {
-                    newFileName = filePathArr[filePathArr.length - 1].split('.')[0];
-                    console.log("Sa chie en calisse, voici le fichier :", newFileName);
-
-                    return `../../${newFileName}.css`;
-                } else {
-                    console.log("Sa chie en calisse");
-                    return `../../${chunk.name}.css`;
-                }
-            }
-
-        }),
+        // new MiniCssExtractPlugin(),
         new BrowserSyncPlugin({
             files: '**/*.php',
             proxy: $proxy
