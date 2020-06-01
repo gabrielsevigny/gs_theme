@@ -33,6 +33,12 @@ module.exports = {
     module: {
         rules: [
             {
+                enforce: 'pre',
+                exclude: /node_modules/,
+                test: /\.jsx$/,
+                loader: 'eslint-loader'
+            },
+            {
                 test: /\.?js$/,
                 exclude: /(node_modules|bower_components|libs)/,
                 use: {
@@ -112,7 +118,8 @@ module.exports = {
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
         new BrowserSyncPlugin({
-            files: '**/*.php',
+            files: '**/*.(php|poe)',
+            injectChanges: true,
             proxy: $proxy
         }),
         //notifications
