@@ -10,6 +10,6 @@ pipelines:
     - step:
         deployment: test
         script:
-          - apt-get update
+          # - apt-get update
           # - apt-get -qq install git-ftp
           - git ftp push --user $FTP_USERNAME --passwd $FTP_PASSWORD cp7.nuagerie.com/public_html/test.dev/wp-content/themes/gs_theme-master/
