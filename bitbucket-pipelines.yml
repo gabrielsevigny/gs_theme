@@ -15,8 +15,8 @@ pipelines:
           caches:
             - node
           script:
-            - npm install
+            # - npm install
             # - npm run gulp
             # - npm run test
-            - git reset --hard
-            - git ftp push --user $FTP_USERNAME $FTP_PASSWORD cp7.nuagerie.com/public_html/test.dev/wp-content/themes/gs_theme-master/
+            # - git reset --hard
+            - git ftp init --user $FTP_USERNAME $FTP_PASSWORD cp7.nuagerie.com/public_html/test.dev/wp-content/themes/gs_theme-master/
