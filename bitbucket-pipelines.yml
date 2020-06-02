@@ -19,4 +19,4 @@ pipelines:
             # - npm run gulp
             # - npm run test
             # - git reset --hard
-            - git ftp init --user $FTP_USERNAME $FTP_PASSWORD cp7.nuagerie.com/public_html/test.dev/wp-content/themes/gs_theme-master/
+            - git ftp fetch $FTP_USERNAME $FTP_PASSWORD cp7.nuagerie.com/public_html/test.dev/wp-content/themes/gs_theme-master/
