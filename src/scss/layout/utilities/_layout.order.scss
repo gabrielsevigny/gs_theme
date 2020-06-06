@@ -1,0 +1,97 @@
+.order {
+  &-1 {
+    order: 1
+  }
+
+  &-2 {
+    order: 2
+  }
+
+  &-3 {
+    order: 3
+  }
+
+  &-4 {
+    order: 4
+  }
+
+  &-5 {
+    order: 5
+  }
+
+}
+
+@media(max-width: $lg) {
+  .order {
+    &-lg-1 {
+      order: 1
+    }
+
+    &-lg-2 {
+      order: 2
+    }
+
+    &-lg-3 {
+      order: 3
+    }
+
+    &-lg-4 {
+      order: 4
+    }
+
+    &-lg-5 {
+      order: 5
+    }
+
+  }
+}
+
+@media(max-width: $md) {
+  .order {
+    &-md-1 {
+      order: 1
+    }
+
+    &-md-2 {
+      order: 2
+    }
+
+    &-md-3 {
+      order: 3
+    }
+
+    &-md-4 {
+      order: 4
+    }
+
+    &-md-5 {
+      order: 5
+    }
+
+  }
+}
+
+@media(max-width: $sm) {
+  .order {
+    &-sm-1 {
+      order: 1
+    }
+
+    &-sm-2 {
+      order: 2
+    }
+
+    &-sm-3 {
+      order: 3
+    }
+
+    &-sm-4 {
+      order: 4
+    }
+
+    &-sm-5 {
+      order: 5
+    }
+
+  }
+}

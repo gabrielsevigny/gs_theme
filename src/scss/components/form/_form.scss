@@ -1,0 +1,227 @@
+form,
+label {
+  display: block;
+}
+
+select {
+  display: block;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 2.5rem !important;
+  border: .1rem solid $black;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: .3s $animItemDefault;
+  margin-bottom: 3rem;
+
+  &:hover {
+    color: white;
+    background-color: $black;
+  }
+
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+//input,
+input[type="file"],
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+input[type="submit"],
+textarea {
+  display: block;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  font-size: 1.8rem;
+
+  color: $gray;
+  background-color: $gray-lighter;
+
+  border: .1rem solid $gray-lighter;
+
+  &:focus {
+    border: .1rem solid $gray;
+  }
+
+  @include placeholder {
+    font-size: 1.8rem;
+    color: $gray;
+  }
+
+}
+
+.customInputFile {
+  position: relative;
+  display: block;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  font-size: 1.8rem;
+
+  color: $gray;
+  background-color: $gray-lighter;
+
+  border: .1rem solid $gray-lighter;
+
+  &__btn {
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+    text-decoration: underline;
+    color: $blue;
+
+    &:hover {
+      color: $red;
+      cursor: pointer;
+    }
+
+    .wpcf7-form-control-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      opacity: 1;
+      display: inline-block;
+    }
+
+    input {
+      position: absolute;
+      display: block;
+      width: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+  }
+
+  &:focus {
+    border: .1rem solid $gray;
+  }
+
+}
+
+input[type="submit"] {
+  display: inline-block;
+  width: auto;
+  padding: 1rem 3rem;
+  font-size: 1.8rem;
+  line-height: 1;
+  font-weight: 700;
+  text-transform: uppercase;;
+  border-radius: 2.5rem;
+  color: white;
+  background-color: $blue;
+
+  &:hover {
+  }
+}
+
+button {
+  &:focus {
+    box-shadow: none;
+    outline: 0 !important;
+  }
+}
+
+.wpcf7-checkbox {
+  .wpcf7-list-item-label {
+    font-size: 1.8rem;
+    color: $gray;
+  }
+}
+
+//Contact form validation
+div.wpcf7-response-output {
+  padding: 1.5rem;
+  margin-top: 0;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  border: .2rem solid $blue;
+
+  &.wpcf7-mail-sent-ok {
+    color: $blue;
+    //background-color: white;
+  }
+
+  &.wpcf7-validation-errors {
+    border-color: $red;
+    color: $red;
+    // background-color: white;
+  }
+
+  &.wpcf7-mail-sent-ng {
+    color: $red;
+    border-color: $red !important;
+  }
+}
+
+input.wpcf7-not-valid {
+  color: $red;
+  border-color: $red !important;
+  padding-bottom: 1.5rem;
+
+  &::placeholder {
+    //color: white;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: $gray-lighter;
+    }
+  }
+}
+
+span.wpcf7-not-valid-tip {
+  display: block;
+  padding-left: 1.5rem;
+  margin: -3rem 0 1.5rem 0;
+  //color: $red;
+  font-size: 1.2rem;
+  font-weight: normal;
+
+}
+
+form {
+  em {
+    display: block;
+    margin: -2.5rem 0 3rem 0;
+    font-size: 1.4rem;
+    color: $gray;
+  }
+}
+
+fieldset {
+  legend {
+    margin: 6rem 0 3rem 0;
+    font-size: 1.6rem;
+  }
+}

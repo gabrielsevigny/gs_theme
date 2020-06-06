@@ -1,0 +1,15 @@
+//Container's Options
+.o-container {
+
+  //Alignement du texte
+  &__alignTxt {
+    &--center {
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+
+}

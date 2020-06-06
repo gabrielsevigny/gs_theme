@@ -12,103 +12,33 @@ License URI: LICENSE
 Text Domain: gs_theme
 Tags: Wordpress BoilerPlate Starter Theme
 
-This theme, like WordPress, is licensed under the GPL.
-Use it to make something cool, have fun, and share what you've learned.
 
-GS Theme is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
-Underscores is distributed under the terms of the GNU GPL v2 or later.
+/**
+  *  ---- SETTINGS ----
+ */
+@import 'base/settings';
+@import 'base/colors';
+@import 'animations/easings';
+@import 'base/resets';
+@import 'base/core';
+@import 'base/typography';
 
-Normalizing styles have been helped along thanks to the fine work of
-Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
+/**
+*  ---- LAYOUTS ----
 */
-
-/*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
-----------------------------------------------------------------
-# Generic
-	- Normalize
-	- Box sizing
-# Base
-	- Typography
-	- Elements
-	- Links
-	- Forms
-## Layouts
-# Components
-	- Navigation
-	- Posts and pages
-	- Comments
-	- Widgets
-	- Media
-	- Captions
-	- Galleries
-# plugins
-	- Jetpack infinite scroll
-# Utilities
-	- Accessibility
-	- Alignments
-
---------------------------------------------------------------*/
-
-$clr : red;
-body{
-  background:$clr;
-  display:flex;
-  flex-wrap: wrap;
-}
-
-// Import variables and mixins.
-@import "abstracts/abstracts";
-
-/*--------------------------------------------------------------
-# Generic
---------------------------------------------------------------*/
-
-/* Normalize
---------------------------------------------- */
-@import "generic/normalize";
-
-/* Box sizing
---------------------------------------------- */
-@import "generic/box-sizing";
-
-/*--------------------------------------------------------------
-# Base
---------------------------------------------------------------*/
-@import "base/base";
-
-/*--------------------------------------------------------------
-# Layouts
---------------------------------------------------------------*/
-// @import "layouts/content-sidebar"; // Uncomment this line for a sidebar on right side of your content.
-// @import "layouts/sidebar-content"; // Uncomment this line for a sidebar on left side of your content.
-
-/*--------------------------------------------------------------
-# Components
---------------------------------------------------------------*/
-@import "components/components";
-
-/*--------------------------------------------------------------
-# Plugins
---------------------------------------------------------------*/
-
-/* Jetpack infinite scroll
---------------------------------------------- */
-@import "plugins/jetpack/infinite-scroll";
-
-/*--------------------------------------------------------------
-# Utilities
---------------------------------------------------------------*/
-
-/* Accessibility
---------------------------------------------- */
-@import "utilities/accessibility";
-
-/* Alignments
---------------------------------------------- */
-@import "utilities/alignments";
-
-
-html, body {
-  background-color: pink;
-}
+@import "layout/layout.all";
+/**
+  *  ---- COMPONENTS ----
+ */
+@import "components/medias/medias.all";
+@import "components/browser/browser.all";
+@import "components/footer/footer.all";
+@import "components/button/btn.all";
+@import "components/socialMedia/socialmedia.all";
+@import "components/cards/cards.all";
+@import "components/carousel/slick.all";
+@import "components/popup/popup.all";
+@import "components/header/header.all";
+@import "components/form/form";
+@import "components/navbar/navbar.all";
+@import "components/post_list_menu/post_list_menu.all";

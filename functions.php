@@ -137,7 +137,7 @@ add_action( 'widgets_init', 'gs_theme_widgets_init' );
 function gs_theme_scripts() {
 	wp_enqueue_style( 'gs_theme-style', get_stylesheet_uri() );
 	wp_enqueue_style( 'frontend-style', get_template_directory_uri() . '/assets/css/style.css', array(), _S_VERSION );
-	wp_style_add_data( 'gs_theme-style', 'rtl', 'replace' );
+	wp_style_add_data( 'rtl-style', 'rtl', 'replace' );
 
 	wp_deregister_script( 'jquery' );
 	wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', false, '3.4.1', false );
@@ -154,29 +154,18 @@ function gs_theme_scripts() {
 add_action( 'wp_enqueue_scripts', 'gs_theme_scripts' );
 
 /**
- * Implement the Custom Header feature.
+ * DEV settings
  */
-require get_template_directory() . '/inc/custom-header.php';
+require get_template_directory() . '/core/dev/core_permalink.php';
+get_coreUrl( 'dev', 'var_dump' );
 
 /**
- * Custom template tags for this theme.
+ * Base settings
  */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
+get_coreUrl( 'base', 'custom-header' );
+get_coreUrl( 'base', 'template-tags' );
+get_coreUrl( 'base', 'template-functions' );
+get_coreUrl( 'base', 'customizer' );
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+	get_coreUrl( 'base', 'jetpack' );
 }
-
