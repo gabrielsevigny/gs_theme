@@ -1,5 +1,10 @@
-import barba from '@barba/core';
+/**
+ * Importation des libs
+ **/
 
-// barba.init({
-//     // ...
-// });
+/**
+ * Importation des modules
+ **/
+//Dev
+import "./modules/dev/lazyLoad"
+import "./modules/dev/prefetch"

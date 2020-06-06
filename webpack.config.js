@@ -6,7 +6,8 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
+const BrotliPlugin = require('brotli-webpack-plugin');
+const DashboardPlugin = require("webpack-dashboard/plugin");
 const $proxy = 'http://dev.webpack';
 
 module.exports = {
@@ -15,8 +16,6 @@ module.exports = {
         main: [
             './src/js/main.js',
             './src/scss/style.scss',
-            './src/scss/admin.scss',
-            // './src/scss/editor.scss'
         ]
     },
 
@@ -25,6 +24,7 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/js'),
         chunkFilename: "vendors.bundle.js"
     },
+
     externals: {
         jquery: 'jQuery',
         $: 'jQuery'
@@ -115,13 +115,16 @@ module.exports = {
 
     plugins: [
 
+        new DashboardPlugin(),
+
+        new BrotliPlugin({
+            asset: '[path].br[query]',
+            test: /\.(js|css|html|svg)$/,
+            threshold: 10240,
+            minRatio: 0.8
+        }),
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
-        new BrowserSyncPlugin({
-            files: '**/*.(php|poe)',
-            injectChanges: true,
-            proxy: $proxy
-        }),
         //notifications
         new WebpackNotifierPlugin({
             title: 'Le projet a été mis a jour',
@@ -129,26 +132,32 @@ module.exports = {
             contentImage: false,
             sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
             open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
-            icon: path.join(__dirname, 'src/js_icon.png'),
+            //icon: path.join(__dirname, 'src/js_icon.png'),
+            icon: false,
+        }),
+
+        new BrowserSyncPlugin({
+            files: '**/*.(php|poe)',
+            injectChanges: true,
+            proxy: $proxy,
+            open: false
         }),
 
     ],
 
     optimization: {
-        splitChunks: { //Permets d'importer des librairies nodes si utilisé dans le projet afin d'éviter de les avoir dans plus d'un bundle
+        splitChunks: {
             cacheGroups: {
-                node_vendors: {
-                    test: /[\\/]node_modules|libs[\\/]/,
-                    chunks: 'all',
-                    priority: 1,
-                },
-            },
-            chunks(chunk) {
-                return chunk.name
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
             }
         },
         minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
     },
+
     //devtool: 'source-map'
     devtool: 'cheap-eval-source-map',
 };

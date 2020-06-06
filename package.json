@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode=development",
-    "watch": "webpack --mode=production --watch"
+    "watch": "webpack --mode=production --watch",
+    "dev": "webpack-dashboard webpack --mode=production --watch"
   },
   "author": "Gabriel Sévigny",
   "license": "ISC",
@@ -13,11 +14,11 @@
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
-    "@barba/core": "^2.9.7",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.1.0",
     "babel-preset-env": "^1.7.0",
+    "brotli-webpack-plugin": "^1.1.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "css-loader": "^3.5.3",
@@ -54,6 +55,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
+    "webpack-dashboard": "^3.2.0",
     "webpack-notifier": "^1.8.0",
     "wp-pot-cli": "^1.2.4"
   },
