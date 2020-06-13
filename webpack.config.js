@@ -1,14 +1,19 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const autoprefixer = require("autoprefixer");
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //A VOIR
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const autoprefixer = require('autoprefixer');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const DashboardPlugin = require("webpack-dashboard/plugin");
-const $proxy = 'http://dev.webpack';
+const CopyPlugin = require('copy-webpack-plugin');
+
+const $proxy = 'https://kingsway:8890';
 
 module.exports = {
     context: __dirname,
@@ -22,7 +27,7 @@ module.exports = {
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'assets/js'),
-        chunkFilename: "vendors.bundle.js"
+        chunkFilename: 'vendors.bundle.js'
     },
 
     externals: {
@@ -35,8 +40,8 @@ module.exports = {
             {
                 enforce: 'pre',
                 exclude: /node_modules/,
-                test: /\.jsx$/,
-                loader: 'eslint-loader'
+                test: /\.jsx$/
+                //loader: 'eslint-loader'
             },
             {
                 test: /\.?js$/,
@@ -50,12 +55,13 @@ module.exports = {
                 }
             },
             {
-                test: /\.s?css$/,
+                test: /\.(sass|scss)$/,
+
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '../css/[name].css',
+                            name: '../css/[name].css'
                         }
                     },
                     'extract-loader',
@@ -76,7 +82,7 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            name: '../css/[name].css',
+                            name: '../css/[name].css'
                         }
                     },
                     'extract-loader',
@@ -86,61 +92,98 @@ module.exports = {
                         options: {
                             plugins: () => [autoprefixer()]
                         }
-                    }]
+                    }
+                ]
             },
-            {
+            /*{
                 test: /\.svg$/,
                 loader: 'svg-sprite-loader',
                 options: {
                     extract: true,
                     spriteFilename: 'svg-defs.svg'
                 }
-            },
-            {
-                test: /\.(jpe?g|png|gif)\$/,
+            },*/
+            /*{
+                test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            outputPath: 'images/',
-                            name: '[name].[ext]'
+                            name: 'images/[name].[ext]'
                         }
-                    },
-                    'img-loader'
+                    }
                 ]
-            }
-        ],
-
+            }*/
+        ]
     },
 
     plugins: [
-
-        new DashboardPlugin(),
-
-        new BrotliPlugin({
-            asset: '[path].br[query]',
-            test: /\.(js|css|html|svg)$/,
-            threshold: 10240,
-            minRatio: 0.8
-        }),
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
+        new DashboardPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.AutomaticPrefetchPlugin(),
+        /**
+         * Plugin pour copieCollie les directory etc
+         */
+        new CopyPlugin({
+            patterns: [
+                //Images
+                {
+                    from: path.resolve(__dirname, 'src/images/'),
+                    to: path.resolve(__dirname, 'assets/images/'),
+                    force: true,
+                },
+                //Fonts
+                //{
+                //     from: path.resolve(__dirname, 'src/fonts/'),
+                //     to: path.resolve(__dirname, 'assets/fonts/'),
+                //     force: true,
+                // },
+            ],
+        }),
+        //Compression des images
+
+        //TODO: À vérifier pour optimisation
+        /*new ImageminPlugin({
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            //test: path.resolve(__dirname, '**!/!*.(jpe?g|png|gif|svg)'),
+            optipng: {optimizationLevel: 9},
+            gifsicle: {optimizationLevel: 9},
+            jpegtran: {optimizationLevel: 9},
+            svgo: {optimizationLevel: 9},
+            context: path.resolve(__dirname, 'src/images/'),
+            destination: path.resolve(__dirname, 'assets/images'),
+        }),*/
+
+        new BrowserSyncPlugin({
+            files: '**/*.(php|poe|css|scss|js|html)',
+            injectChanges: true,
+            proxy: {
+                target: $proxy,
+                ws: true
+            },
+            notify: false,
+            open: "external",
+
+        }),
+
         //notifications
         new WebpackNotifierPlugin({
             title: 'Le projet a été mis a jour',
             //contentImage: path.join(__dirname, 'src/js_icon.png'),
             contentImage: false,
             sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
-            open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
-            //icon: path.join(__dirname, 'src/js_icon.png'),
-            icon: false,
+            //open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
+            // icon: path.join(__dirname, 'src/js_icon.png')
+            icon: false
         }),
 
-        new BrowserSyncPlugin({
-            files: '**/*.(php|poe)',
-            injectChanges: true,
-            proxy: $proxy,
-            open: false
+        new BrotliPlugin({
+            asset: '[path].br[query]',
+            test: /\.(js|css|html|svg)$/,
+            threshold: 10240,
+            minRatio: 0.8
         }),
 
     ],
@@ -149,15 +192,28 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 commons: {
-                    test: /[\\/]node_modules[\\/]/,
+                    test: /\.(node_modules|libs|html|svg)$/,
+                    //test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     chunks: 'all'
                 }
             }
         },
-        minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
+        minimizer: [new UglifyJsPlugin({
+            sourceMap: false
+        }),
+            new OptimizeCssAssetsPlugin()]
     },
 
+    performance: {
+        hints: false //-> Given an asset is created that is over 250kb:
+        // hints: 'warning' //-> No hint warnings or errors are shown.
+        //hints: 'error' //-> A warning will be displayed notifying you of a large asset. We recommend something like this for development environments.
+    },
+
+
     //devtool: 'source-map'
-    devtool: 'cheap-eval-source-map',
+    //devtool: 'cheap-eval-source-map'
+    devtool: false,
+
 };
