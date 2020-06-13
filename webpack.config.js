@@ -1,4 +1,7 @@
 //TODO: AJOUTER LA POSSIBILITÉ D'AJOUTER ./LIBS dans vendors.js
+//TODO: Compression des images
+//TODO: Loader seulement les font awesome utilisé
+
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //A VOIR
