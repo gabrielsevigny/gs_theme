@@ -3,29 +3,33 @@
  */
 $white: #fbfafd !default;
 $black: #000000 !default;
-$red: #e81d2c !default;
-$orange: #ffa32d !default;
-$yellow: #f5bc2b !default;
-$green: #89d200 !default;
-$blue: #2a317d !default;
-$teal: #0faaad !default;
-$pink: #d73e3c !default;
-$purple: #722483 !default;
+$red: #f44336 !default;
+$brown: #795548 !default;
+$deep-orange: #FF5722 !default;
+$orange: #FF9800 !default;
+$amber: #FFC107 !default;
+$yellow: #FFEB3B !default;
+$green: #4CAF50 !default;
+$light-green: #8BC34A !default;
+$lime: #CDDC39 !default;
+$blue: #2196F3 !default;
+$light-blue: #03A9F4 !default;
+$cyan: #00BCD4 !default;
+$teal: #009688 !default;
+$pink: #E91E63 !default;
+$purple: #9C27B0 !default;
+$deep-purple: #673AB7 !default;
+$indigo: #3F51B5 !default;
 
-/**
-  * Liste des Gradiants
- */
-//lightBlue #0066B3
-//DarkBlue ##002E66
-$gradiant__radial--blue: radial-gradient(circle at center, #0066B3, #002E66) !default;
 /**
   * Teintes de gris
  */
-$gray-dark: #3d4147 !default;
-$gray: #50555b !default;
+$gray-dark: #212121 !default;
+$gray-blue: #607D8B !default;
+$gray: #757575 !default;
 $gray-light: #bdb8b4 !default;
-$gray-lighter: #e2e4e3 !default;
-$gray-lightest: #eff0f6 !default;
+$gray-lighter: #E0E0E0 !default;
+$gray-lightest: #F5F5F5 !default;
 
 /**
   * Assigantion des couleurs selon theme
@@ -44,14 +48,6 @@ $link-color: $brand-primary !default;
 $link-decoration: none !default;
 $link-hover-color: $black !default;
 $link-hover-decoration: none !default;
-
-/**
-  * TEXT COLORS
-**/
-.textColor__blue {
-  color: $blue;
-}
-
 
 /**
   * Couleurs pour les socials Medias

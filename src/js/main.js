@@ -6,5 +6,5 @@
  * Importation des modules
  **/
 //Dev
-import "./modules/dev/lazyLoad"
-import "./modules/dev/prefetch"
+//import "./modules/dev/lazyLoad"
+//import "./modules/dev/prefetch"

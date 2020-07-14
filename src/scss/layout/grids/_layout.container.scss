@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 120rem;
+  padding-right: ($column-gap / 2);
+  padding-left: ($column-gap / 2);
+
+}
+
+.container-fluid {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-right: ($column-gap / 2);
+  padding-left: ($column-gap / 2);
+}

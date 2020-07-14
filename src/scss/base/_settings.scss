@@ -1,8 +1,12 @@
-//FONTS
+/**
+  * FONT'S SETTINGS
+ */
 $mainFonts: 'Roboto', sans-serif;
 $altFonts: $mainFonts;
 
-//responsive breakpoints
+/**
+  * RESPONSIVES BREAKPOINTS
+ */
 $xs: 575.98px;
 $sm: 767.98px;
 $md: 991.98px;
@@ -10,7 +14,15 @@ $lg: 1199.98px;
 $xl: 1449.98px;
 $xxl: 1919.98px;
 
-//Placeholder
+/**
+  * GRIDS
+ */
+$columns: 12;
+$column-gap: 3rem;
+
+/**
+  * PLACEHOLDER
+ */
 @mixin optional-at-root($sel) {
   @at-root #{if(not &, $sel, selector-append(&, $sel))} {
     @content;

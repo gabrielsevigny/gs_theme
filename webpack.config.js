@@ -16,7 +16,7 @@ const BrotliPlugin = require('brotli-webpack-plugin');
 const DashboardPlugin = require("webpack-dashboard/plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
-const $proxy = 'https://cliniquedentaire:8890/';
+const $proxy = 'https://test:8890';
 
 module.exports = {
     context: __dirname,

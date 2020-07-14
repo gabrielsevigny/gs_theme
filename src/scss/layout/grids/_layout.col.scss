@@ -1,0 +1,85 @@
+[class*="col-xs"], [class*="col-md"], [class*="col-lg"], [class*="col-xl"], [class*="col-xxl"], [class*="col-xxxl"] {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: ($column-gap / -2);
+  margin-left: ($column-gap / -2);
+  width: 100%;
+}
+
+/*
+ * Generates classes for a grid of columns, prefixed by size.
+ * The result will be .col-[size]-[col]-[total-columns] E.g. .col-xs-6-12
+ *
+ * @param {string}	$size			The name of the size target (e.g. xs, sm, md, lg, xl, etc.)
+ * @param {int}		$columns	Amount of columns
+ */
+@mixin grid-generator($size, $columns) {
+  @for $i from 1 through $columns {
+    .col-#{$size}-#{$i} {
+      max-width: percentage($i / $columns);
+
+      @if $i == $columns {
+        flex: 0 0 percentage($i / $columns);
+      } @else {
+        flex: 1 1 percentage($i / $columns);
+      }
+
+    }
+  }
+}
+
+/*
+ * A mixin targeting a specific device width and larger.
+ * These are the available targets: 'xs', 'sm', 'md', 'lg', 'xl'
+ *
+ * @param {string} $media The target media
+ */
+@mixin respond-from($media) {
+  @if $media == xs {
+    @media (min-width: 0px) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media (min-width: $sm) {
+      @content;
+    }
+  } @else if $media == md {
+    @media (min-width: $md) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media (min-width: $lg) {
+      @content;
+    }
+  } @else if $media == xl {
+    @media (min-width: $xl) {
+      @content;
+    }
+  } @else if $media == xxl {
+    @media (min-width: $xxl) {
+      @content;
+    }
+  }
+}
+
+@include grid-generator(xs, 12);
+
+@include respond-from(sm) {
+  @include grid-generator(sm, 12);
+}
+
+@include respond-from(md) {
+  @include grid-generator(md, 12);
+}
+
+@include respond-from(lg) {
+  @include grid-generator(lg, 12);
+}
+
+@include respond-from(xl) {
+  @include grid-generator(xl, 12);
+}
+
+@include respond-from(xxl) {
+  @include grid-generator(xxl, 12);
+}
