@@ -1,6 +1,5 @@
 //TODO: AJOUTER LA POSSIBILITÉ D'AJOUTER ./LIBS dans vendors.js
 //TODO: Compression des images
-//TODO: Loader seulement les font awesome utilisé
 
 const path = require('path');
 const webpack = require('webpack');
@@ -17,7 +16,7 @@ const BrotliPlugin = require('brotli-webpack-plugin');
 const DashboardPlugin = require("webpack-dashboard/plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
-const $proxy = 'https://kingsway:8890';
+const $proxy = 'https://cliniquedentaire:8890/';
 
 module.exports = {
     context: __dirname,
@@ -26,6 +25,10 @@ module.exports = {
             './src/js/main.js',
             './src/scss/style.scss',
         ]
+    },
+
+    resolve: {
+        modules: [path.resolve(__dirname, 'src'), 'node_modules']
     },
 
     output: {
@@ -59,8 +62,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.(sass|scss)$/,
-
+                test: /\.s?css$/,
                 use: [
                     {
                         loader: 'file-loader',
@@ -99,51 +101,50 @@ module.exports = {
                     }
                 ]
             },
-            /*{
+            {
                 test: /\.svg$/,
                 loader: 'svg-sprite-loader',
                 options: {
                     extract: true,
                     spriteFilename: 'svg-defs.svg'
                 }
-            },*/
-            /*{
-                test: /\.(png|svg|jpg|gif)$/,
+            },
+            {
+                test: /\.(jpe?g|png|gif)\$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
-                            name: 'images/[name].[ext]'
+                            outputPath: 'images/',
+                            name: '[name].[ext]'
                         }
-                    }
+                    },
+                    'img-loader'
                 ]
-            }*/
+            }
         ]
     },
 
     plugins: [
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
-        new DashboardPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.AutomaticPrefetchPlugin(),
+        //new DashboardPlugin(),
+        //new webpack.HotModuleReplacementPlugin(),
+        //new webpack.AutomaticPrefetchPlugin(),
+
         /**
          * Plugin pour copieCollie les directory etc
          */
         new CopyPlugin({
             patterns: [
-                //Images
+                /**
+                 * Exporte les images
+                 */
                 {
                     from: path.resolve(__dirname, 'src/images/'),
                     to: path.resolve(__dirname, 'assets/images/'),
                     force: true,
-                },
-                //Fonts
-                //{
-                //     from: path.resolve(__dirname, 'src/fonts/'),
-                //     to: path.resolve(__dirname, 'assets/fonts/'),
-                //     force: true,
-                // },
+                }
             ],
         }),
         //Compression des images
@@ -168,7 +169,7 @@ module.exports = {
                 ws: true
             },
             notify: false,
-            open: "external",
+            //open: "external",
 
         }),
 
@@ -196,17 +197,13 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 commons: {
-                    test: /\.(node_modules|libs|html|svg)$/,
-                    //test: /[\\/]node_modules[\\/]/,
+                    test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     chunks: 'all'
                 }
             }
         },
-        minimizer: [new UglifyJsPlugin({
-            sourceMap: false
-        }),
-            new OptimizeCssAssetsPlugin()]
+        //minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
     },
 
     performance: {
