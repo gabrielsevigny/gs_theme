@@ -1,12 +1,19 @@
+//TODO: AJOUTER LA POSSIBILITÉ D'AJOUTER ./LIBS dans vendors.js
+//TODO: Compression des images
+
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //A VOIR
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const autoprefixer = require('autoprefixer');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
+const DashboardPlugin = require("webpack-dashboard/plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
 const $proxy = 'https://test:8890';
@@ -20,11 +27,16 @@ module.exports = {
         ]
     },
 
+    resolve: {
+        modules: [path.resolve(__dirname, 'src'), 'node_modules']
+    },
+
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'assets/js'),
         chunkFilename: 'vendors.bundle.js'
     },
+
     externals: {
         jquery: 'jQuery',
         $: 'jQuery'
@@ -116,26 +128,9 @@ module.exports = {
     plugins: [
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
-        new BrowserSyncPlugin({
-            files: '**/*.(php|poe)',
-            injectChanges: true,
-            proxy: $proxy,
-            notify: false,
-            open: false
-        }),
-
-        /**
-         * NOTIFICATIONS
-         */
-        new WebpackNotifierPlugin({
-            title: 'Le projet a été mis a jour',
-            //contentImage: path.join(__dirname, 'src/js_icon.png'),
-            contentImage: false,
-            sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
-            //open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
-            // icon: path.join(__dirname, 'src/js_icon.png')
-            icon: false
-        }),
+        //new DashboardPlugin(),
+        //new webpack.HotModuleReplacementPlugin(),
+        //new webpack.AutomaticPrefetchPlugin(),
 
         /**
          * Plugin pour copieCollie les directory etc
@@ -152,15 +147,47 @@ module.exports = {
                 }
             ],
         }),
-        /**
-         * OPTIMISATIONS
-         */
+        //Compression des images
+
+        //TODO: À vérifier pour optimisation
+        /*new ImageminPlugin({
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            //test: path.resolve(__dirname, '**!/!*.(jpe?g|png|gif|svg)'),
+            optipng: {optimizationLevel: 9},
+            gifsicle: {optimizationLevel: 9},
+            jpegtran: {optimizationLevel: 9},
+            svgo: {optimizationLevel: 9},
+            context: path.resolve(__dirname, 'src/images/'),
+            destination: path.resolve(__dirname, 'assets/images'),
+        }),*/
+
+        new BrowserSyncPlugin({
+            files: '**/*.(php|poe|css|scss|js|html)',
+            injectChanges: true,
+            proxy: $proxy,
+            notify: false,
+            open: false,
+            //open: "external",
+
+        }),
+
+        //notifications
+        new WebpackNotifierPlugin({
+            title: 'Le projet a été mis a jour',
+            //contentImage: path.join(__dirname, 'src/js_icon.png'),
+            contentImage: false,
+            sound: 'Pop', // true, false, Sound can be one of these: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
+            //open: 'https://gabrielsevigny.com', //URL vers la redirection doit allez
+            // icon: path.join(__dirname, 'src/js_icon.png')
+            icon: false
+        }),
+
         new BrotliPlugin({
             asset: '[path].br[query]',
             test: /\.(js|css|html|svg)$/,
             threshold: 10240,
             minRatio: 0.8
-        })
+        }),
 
     ],
 
@@ -174,11 +201,18 @@ module.exports = {
                 }
             }
         },
-        minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
+        //minimizer: [new UglifyJsPlugin(), new OptimizeCssAssetsPlugin()]
+    },
+
+    performance: {
+        hints: false //-> Given an asset is created that is over 250kb:
+        // hints: 'warning' //-> No hint warnings or errors are shown.
+        //hints: 'error' //-> A warning will be displayed notifying you of a large asset. We recommend something like this for development environments.
     },
 
 
     //devtool: 'source-map'
     //devtool: 'cheap-eval-source-map'
-    devtool: false
+    devtool: false,
+
 };

@@ -3,4 +3,15 @@
   flex-wrap: wrap;
   margin-right: ($column-gap / 2);
   margin-left: ($column-gap / 2);
+
+  @media(max-width: $sm) {
+    margin-right: ($column-gap / 4);
+    margin-left: ($column-gap / 4);
+  }
+
+}
+
+.flex-center {
+  text-align: center;
+  justify-content: center;
 }
