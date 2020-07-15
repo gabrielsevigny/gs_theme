@@ -15,7 +15,7 @@
 get_header();
 ?>
     <main id="primary" class="site-main">
-
+ k malade
 		<?php
 		while ( have_posts() ) :
 			the_post();
