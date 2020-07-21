@@ -6,13 +6,6 @@
   width: 100%;
 }
 
-/*
- * Generates classes for a grid of columns, prefixed by size.
- * The result will be .col-[size]-[col]-[total-columns] E.g. .col-xs-6-12
- *
- * @param {string}	$size			The name of the size target (e.g. xs, sm, md, lg, xl, etc.)
- * @param {int}		$columns	Amount of columns
- */
 @mixin grid-generator($size, $columns) {
   @for $i from 1 through $columns {
     .col-#{$size}-#{$i} {
@@ -28,12 +21,7 @@
   }
 }
 
-/*
- * A mixin targeting a specific device width and larger.
- * These are the available targets: 'xs', 'sm', 'md', 'lg', 'xl'
- *
- * @param {string} $media The target media
- */
+
 @mixin respond-from($media) {
   @if $media == xs {
     @media (min-width: 0px) {
