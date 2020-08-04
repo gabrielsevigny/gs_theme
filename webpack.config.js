@@ -12,6 +12,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const $proxy = 'https://test:8890';
 
 module.exports = {
+    mode: 'development',
     context: __dirname,
     entry: {
         main: [
@@ -119,9 +120,10 @@ module.exports = {
         new BrowserSyncPlugin({
             files: '**/*.(php|poe)',
             injectChanges: true,
+            // https: true,
             proxy: $proxy,
             notify: false,
-            open: false
+            open: false,
         }),
 
         /**
