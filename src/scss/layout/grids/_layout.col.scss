@@ -50,24 +50,24 @@
   }
 }
 
-@include grid-generator(xs, 12);
+@include grid-generator(xs, $columns);
 
 @include respond-from(sm) {
-  @include grid-generator(sm, 12);
+  @include grid-generator(sm, $columns);
 }
 
 @include respond-from(md) {
-  @include grid-generator(md, 12);
+  @include grid-generator(md, $columns);
 }
 
 @include respond-from(lg) {
-  @include grid-generator(lg, 12);
+  @include grid-generator(lg, $columns);
 }
 
 @include respond-from(xl) {
-  @include grid-generator(xl, 12);
+  @include grid-generator(xl, $columns);
 }
 
 @include respond-from(xxl) {
-  @include grid-generator(xxl, 12);
+  @include grid-generator(xxl, $columns);
 }
