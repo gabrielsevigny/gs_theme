@@ -21,16 +21,13 @@
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-<div id="page" class="site">
 
+<div id="page" class="site">
 
     <header class="c-navbar">
         <div class="container">
             <div class="row">
-                <!--
-                // BRAND NAV
-                -->
+
                 <div class="col-3">
                     <a href="<?php bloginfo( 'url' ); ?>">
                         <h1>
@@ -39,9 +36,6 @@
                     </a>
                 </div>
 
-                <!--
-				// MAIN NAV
-				-->
                 <div class="col-9">
                     <nav class="c-navbar__nav">
 
@@ -58,6 +52,5 @@
 
             </div>
         </div>
-
 
     </header><!-- .c-navbar -->
