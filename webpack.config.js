@@ -12,6 +12,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const $proxy = 'https://test:8890';
 
 module.exports = {
+    watch: true,
     mode: 'development',
     context: __dirname,
     entry: {
@@ -117,10 +118,11 @@ module.exports = {
     plugins: [
         // new StyleLintPlugin(),
         // new MiniCssExtractPlugin(),
+
         new BrowserSyncPlugin({
-            files: '**/*.(php|poe)',
+            files: '**!/!*.(php|poe)',
             injectChanges: true,
-            // https: true,
+            https: true,
             proxy: $proxy,
             notify: false,
             open: false,
@@ -170,7 +172,7 @@ module.exports = {
         splitChunks: {
             cacheGroups: {
                 commons: {
-                    test: /[\\/]node_modules[\\/]/,
+                    test: /(node_modules|bower_components|libs)/,
                     name: 'vendors',
                     chunks: 'all'
                 }

@@ -157,6 +157,7 @@ add_action( 'wp_enqueue_scripts', 'gs_theme_scripts' );
  * DEV settings
  */
 require get_template_directory() . '/core/dev/core_permalink.php';
+get_coreUrl( 'dev', 'yoast_low' );
 get_coreUrl( 'dev', 'var_dump' );
 
 /**
