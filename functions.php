@@ -170,3 +170,9 @@ get_coreUrl( 'base', 'customizer' );
 if ( defined( 'JETPACK__VERSION' ) ) {
 	get_coreUrl( 'base', 'jetpack' );
 }
+
+/**
+ * ADMIN settings
+ */
+get_coreUrl( 'admin', 'add_scripts_admin' );
+get_coreUrl( 'admin', 'optionsSite' );

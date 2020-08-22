@@ -19,6 +19,7 @@ module.exports = {
         main: [
             './src/js/main.js',
             './src/scss/style.scss',
+            './src/scss/admin.scss',
         ]
     },
 

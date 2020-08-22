@@ -106,6 +106,19 @@
 
 /***/ }),
 
+/***/ "./src/scss/admin.scss":
+/*!*****************************!*\
+  !*** ./src/scss/admin.scss ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../css/admin.css");
+
+/***/ }),
+
 /***/ "./src/scss/style.scss":
 /*!*****************************!*\
   !*** ./src/scss/style.scss ***!
@@ -120,14 +133,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!****************************************************!*\
-  !*** multi ./src/js/main.js ./src/scss/style.scss ***!
-  \****************************************************/
+/*!**************************************************************************!*\
+  !*** multi ./src/js/main.js ./src/scss/style.scss ./src/scss/admin.scss ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./src/js/main.js */"./src/js/main.js");
-module.exports = __webpack_require__(/*! ./src/scss/style.scss */"./src/scss/style.scss");
+__webpack_require__(/*! ./src/scss/style.scss */"./src/scss/style.scss");
+module.exports = __webpack_require__(/*! ./src/scss/admin.scss */"./src/scss/admin.scss");
 
 
 /***/ })
