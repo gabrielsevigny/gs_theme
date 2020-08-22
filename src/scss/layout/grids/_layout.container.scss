@@ -7,12 +7,6 @@
   max-width: 144rem;
   padding-right: ($column-gap / 2);
   padding-left: ($column-gap / 2);
-
-  @media(max-width: $sm) {
-    padding-right: ($column-gap / 4);
-    padding-left: ($column-gap / 4);
-  }
-
 }
 
 .container-fluid {
@@ -21,10 +15,4 @@
   width: 100%;
   padding-right: ($column-gap / 2);
   padding-left: ($column-gap / 2);
-
-  @media(max-width: $sm) {
-    padding-right: ($column-gap / 4);
-    padding-left: ($column-gap / 4);
-  }
-
 }

@@ -1,7 +1,7 @@
 /* The emerging W3C standard that is currently Firefox-only */
 * {
   scrollbar-width: thin;
-  scrollbar-color: $blue $gray-lighter;
+  scrollbar-color: $brand-primary $gray-lighter;
 }
 
 /* Works on Chrome/Edge/Safari */
@@ -14,7 +14,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: $blue;
+  background-color: $brand-primary;
   border-radius: 25px;
   border: 2px solid $gray-lighter;
 }
