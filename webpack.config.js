@@ -9,7 +9,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const $proxy = 'https://test:8890';
+const $proxy = 'http://localhost:10003/';
 
 module.exports = {
     watch: true,

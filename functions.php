@@ -132,7 +132,9 @@ add_action( 'widgets_init', 'gs_theme_widgets_init' );
  * Enqueue scripts and styles.
  */
 function gs_theme_scripts() {
-
+	if ( class_exists( 'WooCommerce' ) ) {
+		wp_enqueue_style( 'WC-style', get_template_directory_uri() . '/assets/css/woocommerce.css', array(), _S_VERSION );
+	}
 
 	wp_enqueue_style( 'frontend-style', get_template_directory_uri() . '/assets/css/style.css', array(), _S_VERSION );
 	wp_enqueue_style( 'gs_theme-style', get_stylesheet_uri(), array(), _S_VERSION );
