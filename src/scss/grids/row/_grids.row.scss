@@ -1,7 +1,6 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   // margin-right: ($column-gap / -2);
   // margin-left: ($column-gap / -2);
 
@@ -9,5 +8,4 @@
     // margin-right: ($column-gap / -4);
     //  margin-left: ($column-gap / -4);
   }
-
 }

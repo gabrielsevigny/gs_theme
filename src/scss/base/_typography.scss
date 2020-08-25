@@ -10,9 +10,6 @@ h6, .h6 {
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: 3rem;
-  @media(max-width: $sm) {
-    //  text-align: center;
-  }
 }
 
 //Paragraph
@@ -32,11 +29,6 @@ h1, .h1 {
   font-size: 6rem
 }
 
-h4 {
-  font-size: 2.4rem;
-}
-
-/*
 h2, .h2 {
   font-size: 3.9rem
 }
@@ -56,29 +48,10 @@ h5, .h5 {
 h6, .h6 {
   font-size: 1.6rem
 }
-*/
 
 //LINK
 a,
 button,
 input {
   transition: .2s $animItemDefault;
-}
-
-
-/**
-  * TEMPLATE
- **/
-
-.typo__heading--big {
-  font-size: 5rem;
-  margin-bottom: 6rem;
-  letter-spacing: -.1rem;
-  font-style: italic;
-  text-align: center;
-  color: $blue;
-}
-
-.o-txt__light {
-  color: white;
 }

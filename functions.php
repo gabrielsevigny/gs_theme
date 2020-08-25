@@ -103,9 +103,6 @@ add_action( 'after_setup_theme', 'gs_theme_setup' );
  * @global int $content_width
  */
 function gs_theme_content_width() {
-	// This variable is intended to be overruled from themes.
-	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
-	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 	$GLOBALS['content_width'] = apply_filters( 'gs_theme_content_width', 640 );
 }
 
@@ -135,9 +132,11 @@ add_action( 'widgets_init', 'gs_theme_widgets_init' );
  * Enqueue scripts and styles.
  */
 function gs_theme_scripts() {
-	wp_enqueue_style( 'gs_theme-style', get_stylesheet_uri() );
+
+
 	wp_enqueue_style( 'frontend-style', get_template_directory_uri() . '/assets/css/style.css', array(), _S_VERSION );
-	wp_style_add_data( 'rtl-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'gs_theme-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_style_add_data( 'gs_theme-style', 'rtl', 'replace' );
 
 	wp_deregister_script( 'jquery' );
 	wp_register_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', false, '3.4.1', false );
@@ -146,22 +145,28 @@ function gs_theme_scripts() {
 	//wp_enqueue_script( 'vendors', get_template_directory_uri() . '/assets/js/vendors.bundle.js', array(), the_date( 'dmy' ), true );
 	wp_enqueue_script( 'app', get_template_directory_uri() . '/assets/js/main.bundle.js', array(), _S_VERSION, true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+	//if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+	//	wp_enqueue_script( 'comment-reply' );
+	//}
 }
 
 add_action( 'wp_enqueue_scripts', 'gs_theme_scripts' );
 
 /**
- * DEV settings
+ * CORE - DEV
  */
 require get_template_directory() . '/core/dev/core_permalink.php';
-get_coreUrl( 'dev', 'yoast_low' );
 get_coreUrl( 'dev', 'var_dump' );
+get_coreUrl( 'dev', 'yoast_low' );
 
 /**
- * Base settings
+ * CORE - DEV
+ */
+get_coreUrl( 'admin', 'add_scripts_admin' );
+get_coreUrl( 'admin', 'optionsSite' );
+
+/**
+ * CORE - BASE
  */
 get_coreUrl( 'base', 'custom-header' );
 get_coreUrl( 'base', 'template-tags' );
@@ -170,9 +175,6 @@ get_coreUrl( 'base', 'customizer' );
 if ( defined( 'JETPACK__VERSION' ) ) {
 	get_coreUrl( 'base', 'jetpack' );
 }
-
-/**
- * ADMIN settings
- */
-get_coreUrl( 'admin', 'add_scripts_admin' );
-get_coreUrl( 'admin', 'optionsSite' );
+if ( class_exists( 'WooCommerce' ) ) {
+	get_coreUrl( 'base', 'woocommerce' );
+}

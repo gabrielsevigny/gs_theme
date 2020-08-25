@@ -7,21 +7,23 @@ select {
   display: block;
   width: 100%;
   padding: 1.5rem;
-  border-radius: 2.5rem !important;
-  border: .1rem solid $black;
+  margin-bottom: 3rem;
+
   font-size: 1.4rem;
   font-weight: 700;
   text-transform: uppercase;
+
+  border-radius: 2.5rem !important;
+  border: .1rem solid $black;
   appearance: none;
   -webkit-appearance: none;
+
   transition: .3s $animItemDefault;
-  margin-bottom: 3rem;
 
   &:hover {
     color: white;
     background-color: $black;
   }
-
 }
 
 input[type="radio"],
@@ -72,7 +74,6 @@ textarea {
     font-size: 1.8rem;
     color: $gray;
   }
-
 }
 
 .customInputFile {
@@ -118,13 +119,11 @@ textarea {
       left: 0;
       opacity: 0;
     }
-
   }
 
   &:focus {
     border: .1rem solid $gray;
   }
-
 }
 
 input[type="submit"] {
@@ -204,7 +203,6 @@ span.wpcf7-not-valid-tip {
   display: block;
   padding-left: 1.5rem;
   margin: -3rem 0 1.5rem 0;
-  //color: $red;
   font-size: 1.2rem;
   font-weight: normal;
 
