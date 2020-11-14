@@ -157,7 +157,6 @@ add_action( 'wp_enqueue_scripts', 'gs_theme_scripts' );
 require get_template_directory() . '/core/dev/core_permalink.php';
 get_coreUrl( 'dev', 'var_dump' );
 get_coreUrl( 'dev', 'yoast_low' );
-get_coreUrl( 'admin', 'dns_prefetch' );
 get_coreUrl( 'dev', 'remove_p_tag_contactform' );
 
 /**
