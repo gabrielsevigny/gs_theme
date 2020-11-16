@@ -164,6 +164,7 @@ get_coreUrl( 'dev', 'remove_p_tag_contactform' );
  */
 get_coreUrl( 'admin', 'add_scripts_admin' );
 get_coreUrl( 'admin', 'optionsSite' );
+get_coreUrl( 'admin', 'disable_comments' );
 
 /**
  * CORE - BASE
